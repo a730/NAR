@@ -38,10 +38,10 @@ The project is currently in concept phase. The roadmap includes:
   - Low power consumption
   - Sufficient RAM (2-4GB)
 - **Software**:
-  - Lightweight LLM model
-  - Real-time packet capture
-  - Network traffic analysis algorithms
-
+  - Lightweight LLM model: *llama.cpp*
+  - Real-time packet capture: *suricatta/Snort/zeek,Wireshark & Tshark,Elasticsearch & Kibana*
+  - Network traffic analysis algorithms: *zmap,ettercap,dsniff,ntopng,NetworkMiner,NetFlow/IPFIX Tools*
+  - Other: *MISP (Malware Information Sharing Platform)*
 ### Next Steps
 1. **Model Selection**: Evaluate and select appropriate models for network analysis
 2. **Hardware Testing**: Assess performance on various SBC platforms
