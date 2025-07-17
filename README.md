@@ -1,8 +1,24 @@
 # NAR
 ## Network Alarm Respons (NAR)
 ### Conceptual Smoke Alarm for Your Network
+This project aims to develop a device powered by a small LOCAL AI/LLM model that monitors network traffic in real-time and provides actionable insights to improve your home network security.
 
-This project aims to develop a device powered by a small **LOCAL** AI/LLM model that monitors network traffic in real-time and provides actionable insights to improve your home network security. *No data leaves your network besides what you say yes to.*
+#### Why You Need This in Your Home
+Just as smoke alarms protect your home from fire, NAR protects your network from cyber threats. Here's why you should have this in your home:
+ Prevent Data Theft: Many attacks occur silently without obvious signs. NAR detects these attacks before they can exfiltrate your data.
+ Automated Protection: Unlike manual monitoring, NAR continuously scans for vulnerabilities without interruption.
+ Peace of Mind: By identifying attacks early, you can focus on other tasks knowing your network is secure.
+ Resource Efficiency: Unlike cloud-based solutions, NAR runs locally using minimal resources, eliminating bandwidth usage and data leakage concerns.
+ How It Works
+ 
+#### Real-time Analysis
+NAR continuously monitors network packets using lightweight models trained to detect:
+ Data exfiltration
+ Known attack vectors
+ Unusual protocol behavior
+ Ethical Data Handling
+ Data Localization: All processing occurs locally on your network
+ Transparency: Clear visualization of what data is being analyzed
 
 ### Design Philosophy
 The design follows these principles:
