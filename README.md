@@ -45,11 +45,11 @@ The project is currently in concept phase. The roadmap includes:
 ### Next Steps
 1. **Model Selection**: Evaluate and select appropriate models for network analysis
 2. **Hardware Testing**: Assess performance on various SBC platforms
-3. **Integration**: Develop mechanisms to integrate with existing home automation systems
+3. **Integration**: Develop mechanisms to integrate with existing home network systems
 
 ### Ethical Considerations
 - **Privacy**: Focus on network behavior rather than individual packets
-- **Resource Consumption**: Designed to run on low-power hardware
+- **Resource Consumption**: Designed to run on low-power hardware 24/7
 
 This concept leverages advances in ML models to make network monitoring accessible to the average home user without requiring extensive technical knowledge or hardware upgrades.
 
