@@ -2,7 +2,7 @@
 ## Network Alarm Respons (NAR)
 ### Conceptual Smoke Alarm for Your Network
 
-This project aims to develop a device powered by a small LLM model that monitors network traffic in real-time and provides actionable insights to improve your home network security.
+This project aims to develop a device powered by a small **LOCAL** AI/LLM model that monitors network traffic in real-time and provides actionable insights to improve your home network security.
 
 ### Design Philosophy
 The design follows these principles:
