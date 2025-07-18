@@ -3,6 +3,7 @@
 ### Smoke Alarm for Your Network
 This project aims to develop a device powered by a small LOCAL AI/LLM model that monitors network traffic in real-time and provides actionable insights to improve your home network security.
 * <img width="265" height="265" alt="image" src="https://github.com/user-attachments/assets/b4617fcf-bb13-4c0d-811c-d7c0813fa409" />
+*concept image*
 
 #### Why You Need This in Your Home
 Just as smoke alarms protect your home from fire, NAR protects your network from cyber threats. 
@@ -57,20 +58,6 @@ This concept leverages advances in ML models to make network monitoring accessib
 ## AI Foundation
 
 The core AI component will utilize the **White Rabbit NEO** language model, which is specifically designed for network analysis tasks. This model requires minimal training data and can be fine-tuned with custom datasets specific to your network environment.
-
-## Graphical User Interface
-
-For visualization and monitoring, Grafana will be integrated into the system. Grafana provides:
-- Real-time network traffic visualization
-- Historical data analysis
-- Customizable dashboards
-
-## Simplified Security Onion Integration
-
-The project will simplify the integration of Security Onion features, which typically require significant expertise to configure and maintain. Key features will include:
-- Vulnerability assessment
-- Traffic flow visualization
-- Protocol analysis
 
 ## Implementation Plan
 
