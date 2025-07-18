@@ -5,31 +5,23 @@
 
 Imagine having a personal bodyguard for your home network, always on the lookout for potential threats and vulnerabilities. That's what Network Alarm Response (NAR) aims to be - a simple, open-source, and user-friendly solution to safeguard your home network from cyber threats.
 
-### The Problem
-
-As more devices connect to your home network, the risk of cyber attacks increases. But network security can be overwhelming, especially for those without technical expertise. That's why we need a solution that's easy to use, doesn't require a degree in computer science, and is affordable.
-
-### Enter NAR
-
-NAR is a device powered by a small, local AI model that monitors your network traffic in real-time, providing actionable insights to boost your home network's security. With NAR, you'll get:
-
-* **Early Threat Detection**: Identify potential threats before they become incidents.
-* **Automated Protection**: Continuous scanning for vulnerabilities without interruption.
-* **Peace of Mind**: Focus on what matters, knowing your network is secure.
-
+## The Problem
+As more devices connect to your home network, the risk of cyber attacks increases. But network security can be overwhelming, especially for those without technical expertise. That's why we need a solution that's easy to use, doesn't require a degree in computer science, and is affordable. 🤔
+## Enter NAR
+NAR is designed to be a simple, open-source, and user-friendly solution to safeguard your home network from cyber threats. With NAR, you'll get:
+* Early Threat Detection: Identify potential threats before they become incidents. 🔍
+* Automated Protection: Continuous scanning for vulnerabilities without interruption. 🔄
+* Peace of Mind: Focus on what matters, knowing your network is secure. 😌
 ### How it Works
-
 NAR uses a lightweight AI model to monitor network packets in real-time, detecting:
-* Data exfiltration attempts
-* Known attack vectors
-* Unusual protocol behavior
-
-NAR leverages the power of **Zeek (formerly known as Bro)**, a renowned network analysis framework, to provide a deep understanding of your network traffic. With Zeek, NAR can:
-
-* Capture and analyze network packets
-* Identify potential threats and anomalies
-* Provide detailed insights into network behavior
-
+* Data exfiltration attempts 🚫
+* Known attack vectors 🚪
+* Unusual protocol behavior 📊
+NAR leverages the power of Zeek (formerly known as Bro), a renowned network analysis framework, to provide a deep understanding of your network traffic. With Zeek, NAR can:
+* Capture and analyze network packets 📈
+* Identify potential threats and anomalies 🔍
+* Provide detailed insights into network behavior 📊
+* 
 ### Join the Journey
 
 We're just getting started, and we need your help! As an open-source project, NAR is designed to be community-driven. Here's what we're working on:
