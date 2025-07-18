@@ -2,8 +2,10 @@
 ## Network Alarm Respons (NAR)
 ### Conceptual Smoke Alarm for Your Network
 This project aims to develop a device powered by a small LOCAL AI/LLM model that monitors network traffic in real-time and provides actionable insights to improve your home network security.
-<img width="265" height="265" alt="image" src="https://github.com/user-attachments/assets/b4617fcf-bb13-4c0d-811c-d7c0813fa409" />
 
+*
+<img width="265" height="265" alt="image" src="https://github.com/user-attachments/assets/b4617fcf-bb13-4c0d-811c-d7c0813fa409" />
+*
 #### Why You Need This in Your Home
 Just as smoke alarms protect your home from fire, NAR protects your network from cyber threats. 
 Here's why you should have this in your home:
