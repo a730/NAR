@@ -1,13 +1,6 @@
-# NAR
-## Network Alarm Respons (NAR)
-### Smoke Alarm for Your Network
-This project aims to develop a device powered by a small LOCAL AI/LLM model that monitors network traffic in real-time and provides actionable insights to improve your home network security.
-* <img width="265" height="265" alt="image" src="https://github.com/user-attachments/assets/b4617fcf-bb13-4c0d-811c-d7c0813fa409" />
-*concept image*
-
-Here's the updated text:
-
  # Introducing NAR: The Home Network Guardian
+ * <img width="265" height="265" alt="image" src="https://github.com/user-attachments/assets/b4617fcf-bb13-4c0d-811c-d7c0813fa409" />
+*concept image*
 ## Protect Your Home Network from Cyber Threats with a Simple, Open-Source Solution
 
 Imagine having a personal bodyguard for your home network, always on the lookout for potential threats and vulnerabilities. That's what Network Alarm Response (NAR) aims to be - a simple, open-source, and user-friendly solution to safeguard your home network from cyber threats.
