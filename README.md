@@ -17,11 +17,12 @@ NAR uses a lightweight AI model to monitor network packets in real-time, detecti
 * Data exfiltration attempts 🚫
 * Known attack vectors 🚪
 * Unusual protocol behavior 📊
-NAR leverages the power of Zeek (formerly known as Bro), a renowned network analysis framework, to provide a deep understanding of your network traffic. With Zeek, NAR can:
+
+*NAR leverages the power of Zeek (formerly known as Bro), a renowned network analysis framework, to provide a deep understanding of your network traffic. With Zeek, NAR can:*
 * Capture and analyze network packets 📈
 * Identify potential threats and anomalies 🔍
 * Provide detailed insights into network behavior 📊
-* 
+  
 ### Join the Journey
 
 We're just getting started, and we need your help! As an open-source project, NAR is designed to be community-driven. Here's what we're working on:
@@ -48,10 +49,10 @@ Let's work together to make NAR a reality and keep our home networks safe from c
 
 ### Roadmap
 
-* **Q1**: Model selection and hardware testing
-* **Q2**: Integration development and alpha release
-* **Q3**: Beta release and community testing
-* **Q4**: Final release and maintenance
+* **1.**: Model selection and hardware testing
+* **2.**: Integration development and alpha release
+* **3.**: Beta release and community testing
+* **4.**: Final release and maintenance
 
 ### Technical Requirements
 
