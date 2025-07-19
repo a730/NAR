@@ -1,4 +1,4 @@
-# NAR Zero-Day & Zero-Trust Detection and Defense System
+# NAR Zero-Day & Zero-Trust Defense System
 
 This project is an AI-Driven Zero-Day Exploit Detection and Defense System designed to provide robust protection against zero-day vulnerabilities. By leveraging advanced AI models, real-time monitoring, and automated response mechanisms, this system aims to detect and neutralize threats before they can exploit unknown vulnerabilities in your infrastructure.
 
