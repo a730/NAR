@@ -6,8 +6,7 @@ set -e
 
 # Default variables with user overrides
 NETWORK_MODE=${1:-"firewall"}         # firewall or no-firewall
-EMAIL=${2:-""}                        # Email for alerts
-PHONE=${3:-""}                        # Phone for SMS alerts
+
 VPN_ENABLED=${4:-"false"}             # true or false
 VLAN_ID=${5:-"10"}                    # VLAN ID
 TRAFFIC_SHAPING=${6:-"false"}         # true or false
