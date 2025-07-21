@@ -86,6 +86,7 @@ Zero-day vulnerabilities are called “zero-day” for a reason — there’s ze
 ### Phase 2: System Architecture & Design
 - **Goal**: Create a detailed blueprint of the system’s architecture.
 - **Tasks**:
+  - Design and create in sveltekit sith kuzudb
   - Design the overall system architecture, including data flow, processing pipelines, and system interactions.
   - Define the roles of key components: AI models, detection modules, monitoring systems, and response mechanisms.
   - Design the database schema to store detected threats, user actions, and system logs.
