@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAR Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .header nav ul li {
+            margin-right: 20px;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .stat {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 150px;
+            text-align: center;
+        }
+        .stat .value {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .threats {
+            margin-top: 20px;
+        }
+        .threat {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .threat .type {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>NAR Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Alerts</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="section">
+        <h2>Statistics</h2>
+        <div class="stats">
+            <div class="stat">
+                <div class="value">2</div>
+                <div>Threats Detected</div>
+            </div>
+            <div class="stat">
+                <div class="value">5</div>
+                <div>Devices Monitored</div>
+            </div>
+            <div class="stat">
+                <div class="value">22</div>
+                <div>Analyzed Connections</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Detected Threats</h2>
+        <div class="threats">
+            <div class="threat">
+                <div class="type">Data Exfiltration</div>
+                <div>Device: SmartTV</div>
+                <div>Time: Today, 10:45 AM</div>
+            </div>
+            <div class="threat">
+                <div class="type">Suspicious Network Activity</div>
+                <div>Device: Laptop</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Active Devices</h2>
+        <div style="position: relative; width: 200px; height: 200px; border-radius: 50%; background: linear-gradient(to bottom, #fff, #f0f0f0); display: flex; justify-content: center; align-items: center; flex-direction: column;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div>Laptop</div>
+                <div>SmartTV</div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>AI Assistant</h2>
+        <p>The SmartTV appears to be uploading large amounts of data to an unknown server. I recommend blocking outgoing traffic on port 443 for this device.</p>
+        <input type="text" placeholder="Type a message...">
+    </div>
+</div>
+
+</body>
+</html>
