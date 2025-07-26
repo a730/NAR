@@ -3,11 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAR Dashboard</title>
+    <title>NAR Zero</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ADHD-friendly enhancements */
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold; margin-left: 8px; }
+        .status-good { background: #d4edda; color: #155724; }
+        .status-warning { background: #fff3cd; color: #856404; }
+        .status-danger { background: #f8d7da; color: #721c24; }
+        .section-icon { font-size: 1.5em; margin-right: 8px; }
+        .quick-action { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 6px; margin: 8px 4px; cursor: pointer; font-size: 0.9em; }
+        .progress-bar { width: 100%; height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; margin: 8px 0; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #28a745, #20c997); border-radius: 4px; animation: progress-pulse 2s infinite; }
+        @keyframes progress-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .priority-high { border-left: 4px solid #dc3545; }
+        .priority-medium { border-left: 4px solid #ffc107; }
+        .priority-low { border-left: 4px solid #28a745; }
+        .summary-text { font-size: 1.1em; line-height: 1.6; }
+        .visual-separator { height: 2px; background: linear-gradient(90deg, transparent, #007bff, transparent); margin: 20px 0; }
+    </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header with clear navigation -->
         <div class="header">
             <div class="logo">NAR</div>
             <nav>
@@ -18,76 +36,127 @@
                 </ul>
             </nav>
         </div>
-        <h1>Network Alarm Respons (NAR) Dashboard</h1>
-        <p>Conceptual Smoke Alarm for Your Network – powered by AI (White Rabbit NEO)</p>
+
+        <!-- Clear title with status -->
+        <h1>Security Dashboard</h1>
+        <p>AI-Powered Network Protection <span class="status-badge status-good">ACTIVE</span></p>
+
+        <!-- Visual separator -->
+        <div class="visual-separator"></div>
+
+        <!-- Stats with clear visual hierarchy -->
         <div class="stats">
-            <div id="threats-stat" class="stat">
+            <div id="threats-stat" class="stat priority-high">
+                <div class="section-icon">🚨</div>
                 <div class="value">2</div>
-                <div>Threats Detected</div>
+                <div><strong>Threats</strong></div>
+                <div style="font-size: 0.8em; color: #666;">Click to view</div>
             </div>
-            <div id="devices-stat" class="stat">
+            <div id="devices-stat" class="stat priority-medium">
+                <div class="section-icon">📱</div>
                 <div class="value">5</div>
-                <div>Devices Monitored</div>
+                <div><strong>Devices</strong></div>
+                <div style="font-size: 0.8em; color: #666;">Monitored</div>
             </div>
-            <div id="connections-stat" class="stat">
+            <div id="connections-stat" class="stat priority-low">
+                <div class="section-icon">🌐</div>
                 <div class="value">22</div>
-                <div>Analyzed Connections</div>
+                <div><strong>Connections</strong></div>
+                <div style="font-size: 0.8em; color: #666;">Analyzed</div>
             </div>
         </div>
+
+        <div class="visual-separator"></div>
+
+        <!-- Main content with clear sections -->
         <div class="content-flex">
-            <div id="threats-box" class="threats box">
-                <h3>Detected Threats</h3>
+            <!-- Threats with priority indicators -->
+            <div id="threats-box" class="threats box priority-high">
+                <h3>Active Threats <span class="status-badge status-danger">2 ACTIVE</span></h3>
                 <table class="threat-table">
                     <tr>
-                        <th>THREAT</th>
-                        <th>DEVICE</th>
+                        <th>THREAT TYPE</th>
+                        <th>LOCATION</th>
                     </tr>
                     <tr>
-                        <td><span class="threat-icon">!</span> Data Exfiltration</td>
-                        <td>SmartTV ><br>Today, 10:45 AM<br>192.168.1.50</td>
+                        <td><span class="threat-icon">!</span> <strong>Data Theft</strong></td>
+                        <td>📺 SmartTV<br>🕐 Today, 10:45 AM<br>🔗 192.168.1.50</td>
                     </tr>
                     <tr>
-                        <td><span class="threat-icon">!</span> Suspicious Network Activity</td>
-                        <td>Laptop ><br>192.168.1.24</td>
+                        <td><span class="threat-icon">!</span> <strong>Suspicious Activity</strong></td>
+                        <td>💻 Laptop<br>🔗 192.168.1.24</td>
                     </tr>
                 </table>
+                <button class="quick-action">🔒 Block Threats</button>
+                <button class="quick-action" style="background: #17a2b8;">📋 View Details</button>
             </div>
-            <div id="devices-box" class="devices box">
-                <h3>Active Devices</h3>
+
+            <!-- Devices with visual status -->
+            <div id="devices-box" class="devices box priority-low">
+                <h3>📱 Connected Devices <span class="status-badge status-good">5 ONLINE</span></h3>
                 <div class="pie-chart">
                     <div class="pie-center"></div>
                 </div>
                 <div class="device-list">
                     <div class="device-item">
-                        <div class="device-dot blue"></div> Laptop
+                        <div class="device-dot blue"></div> 💻 <strong>Laptop</strong> <span class="status-badge status-good">SAFE</span>
                     </div>
                     <div class="device-item">
-                        <div class="device-dot gray"></div> SmartTV
+                        <div class="device-dot gray"></div> 📺 <strong>SmartTV</strong> <span class="status-badge status-danger">THREAT</span>
                     </div>
                 </div>
+                <button class="quick-action">🔍 Scan Devices</button>
             </div>
         </div>
-        <div class="network-health box">
-            <h3>Network Health</h3>
-            <p>Status: <span id="health-status">Loading...</span></p>
-            <p>Last Scan: <span id="last-scan">Loading...</span></p>
-            <p>Detected Threats: <span id="detected-threats">Loading...</span></p>
-            <button onclick="alert('Manual scan triggered!')">Run Manual Scan</button>
+
+        <div class="visual-separator"></div>
+
+        <!-- Network health with progress bar -->
+        <div class="network-health box priority-medium">
+            <h3>Network Health <span class="status-badge status-good">HEALTHY</span></h3>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 85%;"></div>
+            </div>
+            <p>🔍 Status: <strong><span id="health-status">Loading...</span></strong></p>
+            <p>⏰ Last Scan: <span id="last-scan">Loading...</span></p>
+            <p>🚨 Active Threats: <span id="detected-threats">Loading...</span></p>
+            <button class="quick-action" onclick="alert('🔄 Manual scan starting...')">🔄 Quick Scan</button>
+            <button class="quick-action" style="background: #6f42c1;">🔍 Deep Scan</button>
         </div>
-        <div class="latest-alerts box">
-            <h3>Latest Alerts</h3>
+
+        <!-- Alerts with clear priority -->
+        <div class="latest-alerts box priority-warning">
+            <h3>📢 Recent Alerts <span class="status-badge status-warning">NEW</span></h3>
             <div id="alerts-list"></div>
+            <button class="quick-action" style="background: #fd7e14;">📋 View All Alerts</button>
         </div>
-        <div class="ai-assistant box">
-            <h3>AI-Powered Network Summary</h3>
-            <p id="llm-summary">Loading...</p>
+
+        <!-- AI Summary with clear formatting -->
+        <div class="ai-assistant box priority-low">
+            <h3>🤖 AI Security Assistant</h3>
+            <div class="summary-text">
+                <p id="llm-summary">🔄 Analyzing network patterns...</p>
+            </div>
+            <button class="quick-action" style="background: #6610f2;">💬 Ask AI</button>
+            <button class="quick-action" style="background: #e83e8c;">🔄 Refresh Analysis</button>
         </div>
-        <div class="transparency box">
-            <h3>Transparency & Privacy</h3>
-            <p>All analysis is performed locally. No packet contents are stored or sent to the cloud. Only network behavior is analyzed, prioritizing your privacy and resource efficiency.</p>
+
+        <!-- Privacy info with trust indicators -->
+        <div class="transparency box priority-low">
+            <h3>🔐 Privacy & Security</h3>
+            <p>✅ <strong>100% Local Processing</strong> - Your data never leaves your network</p>
+            <p>🚫 <strong>Zero Cloud Storage</strong> - No personal data sent to external servers</p>
+            <p>🛡️ <strong>Privacy First</strong> - Only network behavior patterns are analyzed</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%; background: #28a745;"></div>
+            </div>
+            <small style="color: #28a745;">🔒 <strong>Privacy Protection: Maximum</strong></small>
         </div>
-        <div id="snackbar" class="snackbar">New network alert detected!</div>
+
+        <!-- Enhanced snackbar (existing) -->
+        <div id="snackbar" class="snackbar">🔔 New network alert detected!</div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
