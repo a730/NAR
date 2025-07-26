@@ -72,100 +72,50 @@ Zero-day vulnerabilities are called “zero-day” for a reason — there’s ze
    python manage.py runserver
    ```
 
-## Project Build and Progress Map
-
-### Phase 1: Project Planning & Research
-- **Goal**: Establish a clear understanding of zero-day vulnerabilities, AI-based detection methodologies, and required technologies.
-- **Tasks**:
-  - Research existing zero-day exploit detection mechanisms.
-  - Define project scope, objectives, and success criteria.
-  - Identify and select appropriate machine learning algorithms and threat intelligence feeds.
-  - Gather and prepare datasets for training AI models.
-  - Establish a timeline and resource allocation for the project.
-
-### Phase 2: System Architecture & Design
-- **Goal**: Create a detailed blueprint of the system’s architecture.
-- **Tasks**:
-  - Design and create in sveltekit sith kuzudb
-  - Design the overall system architecture, including data flow, processing pipelines, and system interactions.
-  - Define the roles of key components: AI models, detection modules, monitoring systems, and response mechanisms.
-  - Design the database schema to store detected threats, user actions, and system logs.
-  - Develop UI/UX wireframes for the web-based dashboard and API documentation interface.
-
-### Phase 3: AI Model Development
-- **Goal**: Develop and train machine learning models for zero-day exploit detection.
-- **Tasks**:
-  - Preprocess the collected dataset and perform feature engineering.
-  - Train initial models using supervised learning with known exploit data.
-  - Implement anomaly detection algorithms for identifying unknown threats.
-  - Validate model performance using cross-validation techniques.
-  - Optimize models based on evaluation metrics such as precision, recall, and F1-score.
-
-### Phase 4: Core System Development
-- **Goal**: Build the main components of the system.
-- **Tasks**:
-  - Develop the real-time monitoring system to capture network traffic and system behaviors.
-  - Implement the detection module that integrates with AI models to identify potential threats.
-  - Create the automated response module that triggers defense mechanisms.
-  - Build the backend API to support interactions with external systems and the web-based dashboard.
-  - Set up a secure, scalable database to store all relevant data.
-  
-### Phase 5: Frontend Development
-- **Goal**: Develop the user-facing dashboard and documentation interface.
-- **Tasks**:
-  - Build the web-based dashboard for real-time monitoring, configuration, and reporting.
-  - Develop visualizations to present detected threats, system status, and historical data.
-  - Implement the configuration panel for system settings, detection thresholds, and response protocols.
-  - Develop API documentation and integration guides for external system interactions.
-  - Ensure the frontend is responsive, intuitive, and accessible.
-
-### Phase 6: System Integration & Testing
-- **Goal**: Integrate all system components and ensure they work harmoniously.
-- **Tasks**:
-  - Integrate the AI models, detection modules, and response mechanisms with the backend.
-  - Conduct unit testing on individual modules.
-  - Perform integration testing to ensure seamless interaction between components.
-  - Carry out performance testing to assess the system’s ability to handle high volumes of data and threats.
-  - Perform security testing to ensure the system itself is not vulnerable to attacks.
-
-### Phase 7: Deployment & Scalability Planning
-- **Goal**: Deploy the system in a production environment and plan for future scalability.
-- **Tasks**:
-  - Deploy the system on a cloud-based or on-premises infrastructure.
-  - Set up continuous integration/continuous deployment (CI/CD) pipelines for ongoing updates.
-  - Plan for horizontal and vertical scaling to handle increased data loads.
-  - Monitor system performance post-deployment and adjust configurations as needed.
-  - Develop a disaster recovery plan and set up redundancy measures.
-
-### Phase 8: Documentation & Training
-- **Goal**: Provide comprehensive documentation and training for end-users and developers.
-- **Tasks**:
-  - Document system architecture, setup, and configuration processes.
-  - Write user guides for the dashboard, API usage, and system configurations.
-  - Provide training sessions or materials for users and administrators.
-  - Create video tutorials or webinars for common use cases and troubleshooting.
-
-### Phase 9: Post-Deployment Monitoring & Maintenance
-- **Goal**: Continuously monitor and maintain the system to ensure optimal performance.
-- **Tasks**:
-  - Set up continuous monitoring for system performance, detected threats, and user activity.
-  - Schedule regular system updates and model retraining sessions.
-  - Conduct periodic security audits to ensure the system remains secure.
-  - Collect user feedback and iterate on features based on real-world usage.
-  - Plan for future enhancements and feature additions based on emerging threats and technology advancements.
-
-## Progress Tracking
-
-### Milestones & Deadlines
-- **Phase 1 Completion**: [Date]
-- **Phase 2 Completion**: [Date]
-- **Phase 3 Completion**: [Date]
-- **Phase 4 Completion**: [Date]
-- **Phase 5 Completion**: [Date]
-- **Phase 6 Completion**: [Date]
-- **Phase 7 Completion**: [Date]
-- **Phase 8 Completion**: [Date]
-- **Phase 9 Ongoing**: Post-deployment monitoring and maintenance is an ongoing activity.
+### Project Objective
+Build an AI-driven zero-day exploit detection and response platform with a web dashboard, scalable backend, and complete documentation—organized so any team member can pick up tasks and contribute.
+#### Research & Planning
+• Survey existing zero-day detection techniques and define success metrics
+• Select ML algorithms, threat-intelligence feeds, and data sources
+• Gather and preprocess datasets
+• Draft project scope, timeline, and resource assignments
+#### System Design
+• Architect end-to-end data flow: capture → processing → storage → response
+• Specify major components: AI models, detection engine, monitoring agents, response module
+• Design KuzuDB schema and SvelteKit front-end wireframes
+#### AI Model Development
+• Feature engineering and dataset preparation
+• Train supervised models on known exploits and anomaly detectors for new threats
+• Validate with cross-validation; tune for precision, recall, F1
+#### Core Backend & API
+• Implement real-time traffic/system monitoring agents
+• Integrate AI models into a detection service
+• Build automated response workflows (alerts, quarantine, etc.)
+• Expose REST/GraphQL endpoints for dashboard and third-party integrations
+• Secure, scale, and optimize the KuzuDB instance
+#### Front-End Dashboard
+• Develop an interactive SvelteKit UI for live alerts, threat history, and system health
+• Create configuration panels for thresholds, rules, and response policies
+• Design data visualizations (charts, timelines, tables)
+• Write integrated API docs and code snippets for external use
+#### Testing & Integration
+• Unit-test each module; perform end-to-end integration tests
+• Run performance benchmarks under simulated high-load conditions
+• Conduct security assessments (penetration tests, code reviews)
+#### Deployment & Scaling
+• Set up CI/CD pipelines for automated build, test, and deploy
+• Deploy on cloud or on-prem; configure autoscaling and load balancing
+• Implement redundancy, backups, and disaster-recovery strategies
+• Monitor live performance and adjust infrastructure as needed
+#### Documentation & Onboarding
+• Maintain up-to-date architecture diagrams, setup guides, and ops runbooks
+• Publish user manuals for dashboard operations and API usage
+• Create training materials (slides, video walkthroughs, sample projects)
+#### Ongoing Maintenance & Improvement
+• Continuously monitor system health, security, and model drift
+• Schedule regular model retraining and software updates
+• Collect user feedback and track feature requests
+• Iterate on detection accuracy, UI/UX, and performance
 
 ### Documentation Updates
 - Regular updates to documentation as new features are developed or existing features are enhanced.
