@@ -26,6 +26,20 @@
             padding-bottom: 10px;
             border-bottom: 1px solid #ddd;
         }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .logo::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #007bff;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
         .header nav ul {
             list-style: none;
             margin: 0;
@@ -35,57 +49,103 @@
         .header nav ul li {
             margin-right: 20px;
         }
-        .section {
-            margin-top: 20px;
-        }
-        .section h2 {
-            margin-top: 0;
+        .header nav ul li a {
+            text-decoration: none;
+            color: #000;
         }
         .stats {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-around;
+            margin-top: 20px;
         }
         .stat {
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
+            background: #fff;
+            padding: 20px;
             border-radius: 10px;
-            width: 150px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
             text-align: center;
+            width: 200px;
         }
         .stat .value {
-            font-size: 1.2em;
+            font-size: 2em;
             font-weight: bold;
         }
         .threats {
             margin-top: 20px;
         }
-        .threat {
-            margin-bottom: 10px;
+        .threat-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .threat-table th, .threat-table td {
             padding: 10px;
+            text-align: left;
             border-bottom: 1px solid #ddd;
         }
-        .threat .type {
+        .threat-icon {
+            color: red;
             font-weight: bold;
+            margin-right: 5px;
+        }
+        .devices {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pie-chart {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#007bff 0% 40%, #ccc 40% 100%);
+            position: relative;
+        }
+        .device-list {
+            display: flex;
+            flex-direction: column;
+        }
+        .device-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .device-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .blue { background: #007bff; }
+        .gray { background: #ccc; }
+        .ai-assistant {
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .ai-message {
+            margin-bottom: 10px;
+        }
+        .ai-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="header">
-        <h1>NAR Dashboard</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Alerts</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="section">
-        <h2>Statistics</h2>
+    <div class="container">
+        <div class="header">
+            <div class="logo">NAR</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Alerts</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </nav>
+        </div>
         <div class="stats">
             <div class="stat">
                 <div class="value">2</div>
@@ -100,36 +160,42 @@
                 <div>Analyzed Connections</div>
             </div>
         </div>
-    </div>
-    <div class="section">
-        <h2>Detected Threats</h2>
         <div class="threats">
-            <div class="threat">
-                <div class="type">Data Exfiltration</div>
-                <div>Device: SmartTV</div>
-                <div>Time: Today, 10:45 AM</div>
+            <h3>Detected Threats</h3>
+            <table class="threat-table">
+                <tr>
+                    <th>THREAT</th>
+                    <th>DEVICE</th>
+                </tr>
+                <tr>
+                    <td><span class="threat-icon">!</span> Data Exfiltration</td>
+                    <td>SmartTV ><br>Today, 10:45 AM<br>192.168.1.50</td>
+                </tr>
+                <tr>
+                    <td><span class="threat-icon">!</span> Suspicious Network Activity</td>
+                    <td>Laptop ><br>192.168.1.24</td>
+                </tr>
+            </table>
+        </div>
+        <div class="devices">
+            <div>
+                <h3>Active Devices</h3>
+                <div class="pie-chart"></div>
             </div>
-            <div class="threat">
-                <div class="type">Suspicious Network Activity</div>
-                <div>Device: Laptop</div>
+            <div class="device-list">
+                <div class="device-item">
+                    <div class="device-dot blue"></div> Laptop
+                </div>
+                <div class="device-item">
+                    <div class="device-dot gray"></div> SmartTV
+                </div>
             </div>
         </div>
-    </div>
-    <div class="section">
-        <h2>Active Devices</h2>
-        <div style="position: relative; width: 200px; height: 200px; border-radius: 50%; background: linear-gradient(to bottom, #fff, #f0f0f0); display: flex; justify-content: center; align-items: center; flex-direction: column;">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                <div>Laptop</div>
-                <div>SmartTV</div>
-            </div>
+        <div class="ai-assistant">
+            <h3>AI Assistant</h3>
+            <div class="ai-message">The SmartTV appears to be uploading large amount of data to an unknown server. I recommend blocking outgoing traffic on port 443 for this device.</div>
+            <input type="text" class="ai-input" placeholder="Type a message...">
         </div>
     </div>
-    <div class="section">
-        <h2>AI Assistant</h2>
-        <p>The SmartTV appears to be uploading large amounts of data to an unknown server. I recommend blocking outgoing traffic on port 443 for this device.</p>
-        <input type="text" placeholder="Type a message...">
-    </div>
-</div>
-
 </body>
 </html>
