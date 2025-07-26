@@ -1,17 +1,306 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Enhanced data simulation with real-time updates
-    const data = {
-        networkHealth: { status: "healthy", lastScan: "2025-07-18 16:00", detectedThreats: 0 },
-        alerts: [
-            { level: "warning", message: "Unusual DNS query behavior detected.", time: "2025-07-18 15:59" },
-            { level: "error", message: "Potential data exfiltration detected.", time: "2025-07-18 16:02" }
-        ],
-        llmSummary: "Network activity is normal. No data exfiltration or known attack vectors detected. Recent increase in DNS traffic observed, but within expected range.",
-        stats: { threats: 2, devices: 5, connections: 22 }
-    };
+// NAR Zero Dashboard Application
+class NARApp {
+    constructor() {
+        this.config = window.NAR_CONFIG;
+        this.currentPage = 'dashboard';
+        this.theme = localStorage.getItem('nar-theme') || 'light';
+        this.init();
+    }
 
-    // Fancy loading animation for stats
-    function animateCounter(element, target, duration = 2000) {
+    init() {
+        console.log('🛡️ NAR Zero Dashboard starting...');
+        
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.setup());
+        } else {
+            this.setup();
+        }
+    }
+
+    setup() {
+        this.setupTheme();
+        this.setupNavigation();
+        this.setupEventListeners();
+        this.loadInitialData();
+        this.startAutoRefresh();
+        this.showWelcomeMessage();
+        
+        console.log('✅ NAR Zero Dashboard ready!');
+    }
+
+    setupTheme() {
+        // Apply saved theme
+        document.documentElement.setAttribute('data-theme', this.theme);
+        this.updateThemeIcon();
+
+        // Set up theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
+    }
+
+    toggleTheme() {
+        this.theme = this.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', this.theme);
+        localStorage.setItem('nar-theme', this.theme);
+        this.updateThemeIcon();
+        this.showNotification('Theme changed', 'info');
+    }
+
+    updateThemeIcon() {
+        const themeIcon = document.querySelector('.theme-icon');
+        if (themeIcon) {
+            themeIcon.textContent = this.theme === 'light' ? '🌙' : '☀️';
+        }
+    }
+
+    setupNavigation() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                if (page) {
+                    this.showPage(page);
+                }
+            });
+        });
+    }
+
+    setupEventListeners() {
+        // Status cards
+        this.setupCardClicks();
+        
+        // AI input
+        this.setupAIInput();
+        
+        // Keyboard shortcuts
+        this.setupKeyboardShortcuts();
+        
+        // Online/offline detection
+        this.setupConnectivityDetection();
+    }
+
+    setupCardClicks() {
+        const cards = document.querySelectorAll('.status-card, .device-card');
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                this.handleCardClick(card);
+            });
+            
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.handleCardClick(card);
+                }
+            });
+        });
+    }
+
+    handleCardClick(card) {
+        // Add visual feedback
+        card.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+            card.style.transform = '';
+        }, 150);
+
+        // Determine action based on card type
+        if (card.classList.contains('status-card')) {
+            if (card.id === 'safetyCard') {
+                this.showPage('threats');
+            } else if (card.id === 'devicesCard') {
+                this.showPage('devices');
+            }
+        } else if (card.classList.contains('device-card')) {
+            const deviceId = card.getAttribute('data-device');
+            if (deviceId) {
+                this.showDeviceDetails(deviceId);
+            }
+        }
+    }
+
+    setupAIInput() {
+        const aiInput = document.getElementById('aiInput');
+        const aiSendBtn = document.getElementById('aiSendBtn');
+
+        if (aiInput && aiSendBtn) {
+            const sendMessage = () => {
+                const message = aiInput.value.trim();
+                if (message) {
+                    this.sendAIMessage(message);
+                    aiInput.value = '';
+                }
+            };
+
+            aiSendBtn.addEventListener('click', sendMessage);
+            aiInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+    }
+
+    setupKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        this.showPage('dashboard');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        this.showPage('threats');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        this.showPage('devices');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        this.showPage('help');
+                        break;
+                    case 'd':
+                        e.preventDefault();
+                        this.toggleTheme();
+                        break;
+                }
+            }
+        });
+    }
+
+    setupConnectivityDetection() {
+        const updateConnectionStatus = () => {
+            const statusDot = document.getElementById('connectionStatus');
+            const offlineBanner = document.getElementById('offlineBanner');
+            
+            if (navigator.onLine) {
+                if (statusDot) statusDot.className = 'status-dot online';
+                if (offlineBanner) offlineBanner.classList.add('hidden');
+            } else {
+                if (statusDot) statusDot.className = 'status-dot';
+                if (offlineBanner) offlineBanner.classList.remove('hidden');
+            }
+        };
+
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        updateConnectionStatus();
+    }
+
+    showPage(pageId) {
+        // Hide all pages
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.remove('active'));
+
+        // Show requested page
+        const targetPage = document.getElementById(`${pageId}-page`);
+        if (targetPage) {
+            targetPage.classList.add('active');
+            this.currentPage = pageId;
+        }
+
+        // Update navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === pageId) {
+                link.classList.add('active');
+            }
+        });
+
+        // Announce page change for screen readers
+        this.announcePageChange(pageId);
+    }
+
+    announcePageChange(pageId) {
+        const pageNames = {
+            dashboard: 'Dashboard',
+            threats: 'Threats',
+            devices: 'Devices',
+            help: 'Help'
+        };
+        
+        const announcement = document.createElement('div');
+        announcement.textContent = `Navigated to ${pageNames[pageId]} page`;
+        announcement.className = 'sr-only';
+        announcement.setAttribute('aria-live', 'polite');
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            document.body.removeChild(announcement);
+        }, 1000);
+    }
+
+    loadInitialData() {
+        // Update device count
+        this.updateDeviceCount();
+        
+        // Update last check time
+        this.updateLastCheckTime();
+        
+        // Update data flow
+        this.updateDataFlow();
+        
+        // Load threat data
+        this.loadThreats();
+    }
+
+    updateDeviceCount() {
+        const deviceCountEl = document.getElementById('deviceCount');
+        if (deviceCountEl) {
+            this.animateCounter(deviceCountEl, this.config.mockData.stats.totalDevices);
+        }
+    }
+
+    updateLastCheckTime() {
+        const lastCheckEl = document.getElementById('lastCheck');
+        if (lastCheckEl) {
+            lastCheckEl.textContent = this.config.mockData.networkStatus.lastCheck;
+        }
+    }
+
+    updateDataFlow() {
+        const dataFlowEl = document.getElementById('dataFlow');
+        if (dataFlowEl) {
+            dataFlowEl.textContent = this.config.mockData.stats.networkSpeed;
+        }
+    }
+
+    loadThreats() {
+        const threatList = document.getElementById('threatList');
+        if (!threatList) return;
+
+        const threats = this.config.mockData.threats;
+        if (threats.length === 0) {
+            this.showNoThreats();
+        } else {
+            // Threats are already in HTML, just make sure they're visible
+            const threatItems = threatList.querySelectorAll('.threat-item');
+            threatItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+    }
+
+    showNoThreats() {
+        const threatList = document.getElementById('threatList');
+        const noThreats = document.getElementById('noThreats');
+        
+        if (threatList && noThreats) {
+            const threatItems = threatList.querySelectorAll('.threat-item');
+            threatItems.forEach(item => item.classList.add('hidden'));
+            noThreats.classList.remove('hidden');
+        }
+    }
+
+    animateCounter(element, target, duration = 2000) {
         const start = 0;
         const increment = target / (duration / 16);
         let current = start;
@@ -26,10 +315,75 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 16);
     }
 
-    // Typewriter effect for AI summary
-    function typeWriter(element, text, speed = 50) {
+    handleThreat(action) {
+        const messages = {
+            block: '🛡️ Blocking Smart TV temporarily...',
+            investigate: '🔍 Starting detailed investigation...'
+        };
+
+        this.showNotification(messages[action] || 'Processing...', 'info');
+        
+        setTimeout(() => {
+            if (action === 'block') {
+                this.showNotification('✅ Smart TV has been blocked successfully!', 'success');
+                this.updateThreatStatus('blocked');
+            } else if (action === 'investigate') {
+                this.showNotification('📊 Investigation complete - likely software update', 'success');
+            }
+        }, 2000);
+    }
+
+    updateThreatStatus(status) {
+        const threatItems = document.querySelectorAll('.threat-item');
+        threatItems.forEach(item => {
+            if (status === 'blocked') {
+                item.style.opacity = '0.6';
+                const indicator = item.querySelector('.threat-indicator');
+                if (indicator) {
+                    indicator.style.background = '#28a745';
+                }
+            }
+        });
+    }
+
+    askAI(question) {
+        this.sendAIMessage(question);
+    }
+
+    sendAIMessage(message = null) {
+        const aiInput = document.getElementById('aiInput');
+        const query = message || (aiInput ? aiInput.value.trim() : '');
+        
+        if (!query) return;
+
+        this.showNotification('🤖 AI is thinking...', 'info');
+
+        // Simulate AI processing time
+        setTimeout(() => {
+            const response = this.getAIResponse(query);
+            this.displayAIResponse(query, response);
+        }, 1500);
+    }
+
+    getAIResponse(query) {
+        const responses = this.config.aiResponses;
+        return responses[query] || responses.default;
+    }
+
+    displayAIResponse(query, response) {
+        const aiMessage = document.getElementById('aiMessage');
+        if (!aiMessage) return;
+
+        const messageContent = aiMessage.querySelector('.message-bubble p');
+        if (messageContent) {
+            this.typeWriter(messageContent, `You asked: "${query}"\n\n${response}`, 30);
+        }
+    }
+
+    typeWriter(element, text, speed = 50) {
         element.textContent = '';
         let i = 0;
+        
         const timer = setInterval(() => {
             if (i < text.length) {
                 element.textContent += text.charAt(i);
@@ -40,239 +394,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }, speed);
     }
 
-    // Pulse animation for threat icons
-    function pulseThreats() {
-        const threatIcons = document.querySelectorAll('.threat-icon');
-        threatIcons.forEach(icon => {
-            icon.style.animation = 'pulse 2s infinite';
-        });
+    showDeviceDetails(deviceId) {
+        const device = this.config.mockData.devices.find(d => d.id === deviceId);
+        if (!device) return;
+
+        this.showNotification(`📱 Loading details for ${device.name}...`, 'info');
+        
+        // For now, just navigate to devices page
+        setTimeout(() => {
+            this.showPage('devices');
+        }, 1000);
     }
 
-    // Rotate pie chart animation
-    function animatePieChart() {
-        const pieChart = document.querySelector('.pie-chart');
-        if (pieChart) {
-            pieChart.style.animation = 'rotate 10s linear infinite';
-        }
-    }
-
-    // Loading states
-    function showLoading(elementId) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.innerHTML = '<div class="loading-spinner"></div>';
-        }
-    }
-
-    function hideLoading(elementId, content) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            setTimeout(() => {
-                element.innerHTML = content;
-            }, 1000);
-        }
-    }
-
-    // Enhanced snackbar with different types
-    function showSnackbar(message, type = 'info', duration = 4000) {
-        const snackbar = document.getElementById('snackbar') || createSnackbar();
-        snackbar.textContent = message;
-        snackbar.className = `snackbar show ${type}`;
+    addNewDevice() {
+        this.showNotification('➕ Device discovery started...', 'info');
         
         setTimeout(() => {
-            snackbar.className = snackbar.className.replace('show', '');
+            this.showNotification('🔍 Scanning for new devices on your network', 'info');
+        }, 1500);
+    }
+
+    blockDevice(deviceId) {
+        this.showNotification('🛡️ Blocking device access...', 'warning');
+        
+        setTimeout(() => {
+            this.showNotification('✅ Device blocked successfully!', 'success');
+        }, 2000);
+    }
+
+    investigateDevice(deviceId) {
+        this.showNotification('🔍 Starting device investigation...', 'info');
+        
+        setTimeout(() => {
+            this.showNotification('📊 Investigation complete - no threats found', 'success');
+        }, 3000);
+    }
+
+    ignoreAlert(deviceId) {
+        this.showNotification('✓ Alert marked as normal', 'success');
+        this.updateThreatStatus('ignored');
+    }
+
+    startAutoRefresh() {
+        if (this.config.dashboard.refreshInterval > 0) {
+            setInterval(() => {
+                this.refreshData();
+            }, this.config.dashboard.refreshInterval);
+        }
+    }
+
+    refreshData() {
+        // Update timestamps and dynamic data
+        this.updateLastCheckTime();
+        
+        // Simulate random data changes occasionally
+        if (Math.random() > 0.8) {
+            const newSpeed = (Math.random() * 10 + 1).toFixed(1);
+            const dataFlowEl = document.getElementById('dataFlow');
+            if (dataFlowEl) {
+                dataFlowEl.textContent = `${newSpeed} MB/s`;
+            }
+        }
+    }
+
+    showNotification(message, type = 'info', duration = 5000) {
+        if (!this.config.notifications.enabled) return;
+
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icon = this.config.notifications.types[type] || 'ℹ️';
+        toast.innerHTML = `${icon} ${message}`;
+        
+        container.appendChild(toast);
+
+        // Auto remove
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
         }, duration);
     }
 
-    function createSnackbar() {
-        const snackbar = document.createElement('div');
-        snackbar.id = 'snackbar';
-        snackbar.className = 'snackbar';
-        document.body.appendChild(snackbar);
-        return snackbar;
-    }
-
-    // Initialize loading states
-    showLoading('health-status');
-    showLoading('last-scan');
-    showLoading('detected-threats');
-    showLoading('alerts-list');
-    showLoading('llm-summary');
-
-    // Simulate data loading with delays
-    setTimeout(() => {
-        // Update Network Health with animation
-        hideLoading('health-status', data.networkHealth.status);
-        hideLoading('last-scan', data.networkHealth.lastScan);
-        hideLoading('detected-threats', data.networkHealth.detectedThreats);
-
-        // Animate stat counters
-        const statsElements = document.querySelectorAll('.stat .value');
-        statsElements.forEach((el, index) => {
-            const values = [data.stats.threats, data.stats.devices, data.stats.connections];
-            if (values[index]) {
-                animateCounter(el, values[index]);
-            }
-        });
-
-        // Update Alerts with fancy animation
-        const alertsList = document.getElementById('alerts-list');
-        if (data.alerts.length === 0) {
-            hideLoading('alerts-list', '<p>No alerts.</p>');
-        } else {
-            let alertsHTML = '';
-            data.alerts.forEach((alert, index) => {
-                alertsHTML += `<div class="alert alert-${alert.level}" style="animation-delay: ${index * 0.2}s">[${alert.time}] ${alert.message}</div>`;
-            });
-            hideLoading('alerts-list', alertsHTML);
-            
-            // Show notification
-            setTimeout(() => {
-                showSnackbar(`${data.alerts.length} network alerts detected!`, 'warning');
-            }, 1500);
-        }
-
-        // Typewriter effect for AI summary
+    showWelcomeMessage() {
         setTimeout(() => {
-            const summaryElement = document.getElementById('llm-summary');
-            if (summaryElement) {
-                typeWriter(summaryElement, data.llmSummary, 30);
-            }
-        }, 2000);
-
-        // Start fancy animations
-        setTimeout(() => {
-            pulseThreats();
-            animatePieChart();
-        }, 3000);
-
-    }, 500);
-
-    // Enhanced click handlers with visual feedback
-    function addClickHandler(elementId, url, message) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.addEventListener('click', function(e) {
-                // Visual feedback
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = 'translateY(-3px)';
-                }, 150);
-
-                // Show loading message
-                showSnackbar(`Loading ${message}...`, 'info', 2000);
-                
-                // Navigate after delay
-                setTimeout(() => {
-                    window.location.href = url;
-                }, 1000);
-            });
-
-            // Hover effects
-            element.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.02)';
-                this.style.boxShadow = '0 8px 25px rgba(0,123,255,0.15)';
-            });
-
-            element.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(-3px) scale(1)';
-                this.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.08)';
-            });
-        }
-    }
-
-    // Add enhanced click handlers
-    addClickHandler('threats-stat', 'threats.html', 'Threats Dashboard');
-    addClickHandler('devices-stat', 'devices.html', 'Devices Dashboard');
-    addClickHandler('connections-stat', 'connections.html', 'Connections Dashboard');
-    addClickHandler('threats-box', 'threats-details.html', 'Threat Details');
-    addClickHandler('devices-box', 'devices-details.html', 'Device Details');
-
-    // Auto-refresh functionality
-    function autoRefresh() {
-        // Simulate new data
-        const newThreatCount = Math.floor(Math.random() * 5) + 1;
-        const newDeviceCount = Math.floor(Math.random() * 10) + 3;
-        const newConnectionCount = Math.floor(Math.random() * 50) + 10;
-
-        // Update counters with animation
-        setTimeout(() => {
-            const statsElements = document.querySelectorAll('.stat .value');
-            if (statsElements[0]) animateCounter(statsElements[0], newThreatCount, 1000);
-            if (statsElements[1]) animateCounter(statsElements[1], newDeviceCount, 1000);
-            if (statsElements[2]) animateCounter(statsElements[2], newConnectionCount, 1000);
+            this.showNotification('🛡️ NAR Zero is protecting your network!', 'success', 4000);
         }, 1000);
-
-        // Random new alert
-        if (Math.random() > 0.7) {
-            setTimeout(() => {
-                showSnackbar('New security event detected!', 'warning');
-            }, 2000);
-        }
     }
+}
 
-    // Start auto-refresh every 30 seconds
-    setInterval(autoRefresh, 30000);
-
-    // Add keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey || e.metaKey) {
-            switch(e.key) {
-                case 'r':
-                    e.preventDefault();
-                    showSnackbar('Refreshing dashboard...', 'info');
-                    setTimeout(() => location.reload(), 1000);
-                    break;
-                case '1':
-                    e.preventDefault();
-                    document.getElementById('threats-stat')?.click();
-                    break;
-                case '2':
-                    e.preventDefault();
-                    document.getElementById('devices-stat')?.click();
-                    break;
-                case '3':
-                    e.preventDefault();
-                    document.getElementById('connections-stat')?.click();
-                    break;
-            }
-        }
-    });
-
-    // Add floating particles effect
-    function createParticles() {
-        const particlesContainer = document.createElement('div');
-        particlesContainer.className = 'particles-container';
-        document.body.appendChild(particlesContainer);
-
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                particle.style.animationDelay = Math.random() * 2 + 's';
-                particlesContainer.appendChild(particle);
-
-                // Remove particle after animation
-                setTimeout(() => {
-                    if (particle.parentNode) {
-                        particle.parentNode.removeChild(particle);
-                    }
-                }, 5000);
-            }, i * 100);
-        }
-    }
-
-    // Easter egg - double click logo for particles
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.addEventListener('dblclick', function() {
-            createParticles();
-            showSnackbar('✨ Easter egg activated! ✨', 'success');
-        });
-    }
-
-    console.log('🚀 Enhanced NAR Dashboard loaded with fancy animations!');
-    showSnackbar('Dashboard loaded successfully!', 'success', 3000);
-});
+// Initialize the app when the script loads
+window.narApp = new NARApp();

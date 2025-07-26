@@ -3,160 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAR Zero</title>
+    <meta name="description" content="NAR Zero - Simple Home Network Security Dashboard">
+    <meta name="theme-color" content="#007bff">
+    <title>NAR Zero - Your Home Network Guardian</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>️</text></svg>
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* ADHD-friendly enhancements */
-        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold; margin-left: 8px; }
-        .status-good { background: #d4edda; color: #155724; }
-        .status-warning { background: #fff3cd; color: #856404; }
-        .status-danger { background: #f8d7da; color: #721c24; }
-        .section-icon { font-size: 1.5em; margin-right: 8px; }
-        .quick-action { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 6px; margin: 8px 4px; cursor: pointer; font-size: 0.9em; }
-        .progress-bar { width: 100%; height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; margin: 8px 0; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #28a745, #20c997); border-radius: 4px; animation: progress-pulse 2s infinite; }
-        @keyframes progress-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-        .priority-high { border-left: 4px solid #dc3545; }
-        .priority-medium { border-left: 4px solid #ffc107; }
-        .priority-low { border-left: 4px solid #28a745; }
-        .summary-text { font-size: 1.1em; line-height: 1.6; }
-        .visual-separator { height: 2px; background: linear-gradient(90deg, transparent, #007bff, transparent); margin: 20px 0; }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header with clear navigation -->
-        <div class="header">
-            <div class="logo">NAR</div>
-            <nav>
-                <ul>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Alerts</a></li>
-                    <li><a href="#">Settings</a></li>
-                </ul>
-            </nav>
-        </div>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-        <!-- Clear title with status -->
-        <h1>Security Dashboard</h1>
-        <p>AI-Powered Network Protection <span class="status-badge status-good">ACTIVE</span></p>
-
-        <!-- Visual separator -->
-        <div class="visual-separator"></div>
-
-        <!-- Stats with clear visual hierarchy -->
-        <div class="stats">
-            <div id="threats-stat" class="stat priority-high">
-                <div class="section-icon">🚨</div>
-                <div class="value">2</div>
-                <div><strong>Threats</strong></div>
-                <div style="font-size: 0.8em; color: #666;">Click to view</div>
-            </div>
-            <div id="devices-stat" class="stat priority-medium">
-                <div class="section-icon">📱</div>
-                <div class="value">5</div>
-                <div><strong>Devices</strong></div>
-                <div style="font-size: 0.8em; color: #666;">Monitored</div>
-            </div>
-            <div id="connections-stat" class="stat priority-low">
-                <div class="section-icon">🌐</div>
-                <div class="value">22</div>
-                <div><strong>Connections</strong></div>
-                <div style="font-size: 0.8em; color: #666;">Analyzed</div>
-            </div>
-        </div>
-
-        <div class="visual-separator"></div>
-
-        <!-- Main content with clear sections -->
-        <div class="content-flex">
-            <!-- Threats with priority indicators -->
-            <div id="threats-box" class="threats box priority-high">
-                <h3>Active Threats <span class="status-badge status-danger">2 ACTIVE</span></h3>
-                <table class="threat-table">
-                    <tr>
-                        <th>THREAT TYPE</th>
-                        <th>LOCATION</th>
-                    </tr>
-                    <tr>
-                        <td><span class="threat-icon">!</span> <strong>Data Theft</strong></td>
-                        <td>📺 SmartTV<br>🕐 Today, 10:45 AM<br>🔗 192.168.1.50</td>
-                    </tr>
-                    <tr>
-                        <td><span class="threat-icon">!</span> <strong>Suspicious Activity</strong></td>
-                        <td>💻 Laptop<br>🔗 192.168.1.24</td>
-                    </tr>
-                </table>
-                <button class="quick-action">🔒 Block Threats</button>
-                <button class="quick-action" style="background: #17a2b8;">📋 View Details</button>
-            </div>
-
-            <!-- Devices with visual status -->
-            <div id="devices-box" class="devices box priority-low">
-                <h3>📱 Connected Devices <span class="status-badge status-good">5 ONLINE</span></h3>
-                <div class="pie-chart">
-                    <div class="pie-center"></div>
-                </div>
-                <div class="device-list">
-                    <div class="device-item">
-                        <div class="device-dot blue"></div> 💻 <strong>Laptop</strong> <span class="status-badge status-good">SAFE</span>
-                    </div>
-                    <div class="device-item">
-                        <div class="device-dot gray"></div> 📺 <strong>SmartTV</strong> <span class="status-badge status-danger">THREAT</span>
-                    </div>
-                </div>
-                <button class="quick-action">🔍 Scan Devices</button>
-            </div>
-        </div>
-
-        <div class="visual-separator"></div>
-
-        <!-- Network health with progress bar -->
-        <div class="network-health box priority-medium">
-            <h3>Network Health <span class="status-badge status-good">HEALTHY</span></h3>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 85%;"></div>
-            </div>
-            <p>🔍 Status: <strong><span id="health-status">Loading...</span></strong></p>
-            <p>⏰ Last Scan: <span id="last-scan">Loading...</span></p>
-            <p>🚨 Active Threats: <span id="detected-threats">Loading...</span></p>
-            <button class="quick-action" onclick="alert('🔄 Manual scan starting...')">🔄 Quick Scan</button>
-            <button class="quick-action" style="background: #6f42c1;">🔍 Deep Scan</button>
-        </div>
-
-        <!-- Alerts with clear priority -->
-        <div class="latest-alerts box priority-warning">
-            <h3>📢 Recent Alerts <span class="status-badge status-warning">NEW</span></h3>
-            <div id="alerts-list"></div>
-            <button class="quick-action" style="background: #fd7e14;">📋 View All Alerts</button>
-        </div>
-
-        <!-- AI Summary with clear formatting -->
-        <div class="ai-assistant box priority-low">
-            <h3>🤖 AI Security Assistant</h3>
-            <div class="summary-text">
-                <p id="llm-summary">🔄 Analyzing network patterns...</p>
-            </div>
-            <button class="quick-action" style="background: #6610f2;">💬 Ask AI</button>
-            <button class="quick-action" style="background: #e83e8c;">🔄 Refresh Analysis</button>
-        </div>
-
-        <!-- Privacy info with trust indicators -->
-        <div class="transparency box priority-low">
-            <h3>🔐 Privacy & Security</h3>
-            <p>✅ <strong>100% Local Processing</strong> - Your data never leaves your network</p>
-            <p>🚫 <strong>Zero Cloud Storage</strong> - No personal data sent to external servers</p>
-            <p>🛡️ <strong>Privacy First</strong> - Only network behavior patterns are analyzed</p>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 100%; background: #28a745;"></div>
-            </div>
-            <small style="color: #28a745;">🔒 <strong>Privacy Protection: Maximum</strong></small>
-        </div>
-
-        <!-- Enhanced snackbar (existing) -->
-        <div id="snackbar" class="snackbar">🔔 New network alert detected!</div>
+    <!-- Offline Banner -->
+    <div class="offline-banner hidden" id="offlineBanner" role="alert" aria-live="polite">
+        <span>📡 You're offline. Some features may not work.</span>
+        <button class="close-banner" onclick="this.parentElement.classList.add('hidden')">&times;</button>
     </div>
 
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Status Bar -->
+        <div class="status-bar" role="banner">
+            <div class="status-left">
+                <span class="status-dot online" id="connectionStatus"></span>
+                <span class="status-text">Your network is protected</span>
+            </div>
+            <div class="status-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="settings-btn" id="settingsBtn" aria-label="Open settings">
+                    ⚙️
+                </button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="header" role="banner">
+            <div class="logo-section">
+                <div class="logo-icon" aria-hidden="true">🛡️</div>
+                <div class="logo-text">
+                    <h1 class="logo-title">NAR Zero</h1>
+                    <p class="logo-subtitle">Your Home Network Guardian</p>
+                </div>
+            </div>
+            
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="#dashboard" class="nav-link active" data-page="dashboard">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-text">Home</span>
+                    </a></li>
+                    <li><a href="#threats" class="nav-link" data-page="threats">
+                        <span class="nav-icon">⚠️</span>
+                        <span class="nav-text">Threats</span>
+                    </a></li>
+                    <li><a href="#devices" class="nav-link" data-page="devices">
+                        <span class="nav-icon">📱</span>
+                        <span class="nav-text">Devices</span>
+                    </a></li>
+                    <li><a href="#help" class="nav-link" data-page="help">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-text">Help</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content" role="main">
+            <!-- Dashboard Page -->
+            <section id="dashboard-page" class="page active" aria-labelledby="dashboard-title">
+                <!-- Quick Status Cards -->
+                <div class="quick-status" role="region" aria-labelledby="status-heading">
+                    <h2 id="status-heading" class="section-title">Network Status</h2>
+                    <div class="status-grid">
+                        <div class="status-card safe" id="safetyCard" tabindex="0" role="button" aria-pressed="false">
+                            <div class="card-icon">✅</div>
+                            <div class="card-content">
+                                <h3 class="card-title">You're Safe</h3>
+                                <p class="card-description">No threats detected</p>
+                                <div class="card-detail">Last checked: <span id="lastCheck">Just now</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-card devices" id="devicesCard" tabindex="0" role="button" aria-pressed="false">
+                            <div class="card-icon">📱</div>
+                            <div class="card-content">
+                                <h3 class="card-title"><span id="deviceCount">5</span> Devices</h3>
+                                <p class="card-description">Connected to your network</p>
+                                <div class="card-detail">All devices secure</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-card activity" id="activityCard" tabindex="0" role="button" aria-pressed="false">
+                            <div class="card-icon">📊</div>
+                            <div class="card-content">
+                                <h3 class="card-title">Normal Activity</h3>
+                                <p class="card-description">Everything looks good</p>
+                                <div class="card-detail"><span id="dataFlow">2.4 MB/s</span> network speed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Threat Alert Section -->
+                <div class="threat-section" role="region" aria-labelledby="threats-heading">
+                    <div class="section-header">
+                        <h2 id="threats-heading" class="section-title">
+                            <span class="title-icon">🚨</span>
+                            Active Warnings
+                        </h2>
+                        <button class="view-all-btn" onclick="window.narApp.showPage('threats')">View All</button>
+                    </div>
+                    
+                    <div class="threat-list" id="threatList">
+                        <div class="threat-item high-priority" role="alert" aria-labelledby="threat-1">
+                            <div class="threat-indicator high"></div>
+                            <div class="threat-content">
+                                <h3 id="threat-1" class="threat-title">Smart TV sending unusual data</h3>
+                                <p class="threat-description">Your Samsung TV is sending more data than usual. This might be normal or could indicate a problem.</p>
+                                <div class="threat-actions">
+                                    <button class="btn btn-primary" onclick="window.narApp.handleThreat('block')">
+                                        <span class="btn-icon">🛡️</span>
+                                        Block for now
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="window.narApp.handleThreat('investigate')">
+                                        <span class="btn-icon">🔍</span>
+                                        Tell me more
+                                    </button>
+                                </div>
+                                <div class="threat-meta">
+                                    <span class="threat-time">2 minutes ago</span>
+                                    <span class="threat-device">📺 Samsung Smart TV</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Device Overview -->
+                <div class="devices-overview" role="region" aria-labelledby="devices-heading">
+                    <div class="section-header">
+                        <h2 id="devices-heading" class="section-title">
+                            <span class="title-icon">📱</span>
+                            Your Devices
+                        </h2>
+                        <button class="view-all-btn" onclick="window.narApp.showPage('devices')">Manage All</button>
+                    </div>
+                    
+                    <div class="device-grid">
+                        <div class="device-card" data-device="laptop" tabindex="0" role="button">
+                            <div class="device-status safe"></div>
+                            <div class="device-icon">💻</div>
+                            <div class="device-info">
+                                <h3 class="device-name">Your Laptop</h3>
+                                <p class="device-detail">Windows 11 • Safe</p>
+                                <div class="device-activity">
+                                    <span class="activity-dot active"></span>
+                                    <span>Active now</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card warning" data-device="tv" tabindex="0" role="button">
+                            <div class="device-status warning"></div>
+                            <div class="device-icon">📺</div>
+                            <div class="device-info">
+                                <h3 class="device-name">Smart TV</h3>
+                                <p class="device-detail">Samsung • Needs attention</p>
+                                <div class="device-activity">
+                                    <span class="activity-dot warning"></span>
+                                    <span>High data usage</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card" data-device="phone" tabindex="0" role="button">
+                            <div class="device-status safe"></div>
+                            <div class="device-icon">📱</div>
+                            <div class="device-info">
+                                <h3 class="device-name">iPhone</h3>
+                                <p class="device-detail">iOS 17 • Safe</p>
+                                <div class="device-activity">
+                                    <span class="activity-dot active"></span>
+                                    <span>Connected</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-card add-device" tabindex="0" role="button" onclick="window.narApp.addNewDevice()">
+                            <div class="add-icon">➕</div>
+                            <div class="add-text">
+                                <h3>Add Device</h3>
+                                <p>Monitor a new device</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Assistant -->
+                <div class="ai-assistant" role="region" aria-labelledby="ai-heading">
+                    <div class="section-header">
+                        <h2 id="ai-heading" class="section-title">
+                            <span class="title-icon">🤖</span>
+                            Smart Assistant
+                        </h2>
+                        <div class="ai-status">
+                            <span class="status-dot online"></span>
+                            <span>Ready to help</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-content">
+                        <div class="ai-message" id="aiMessage">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-bubble">
+                                <p>Hi! I'm watching your network 24/7. Your Smart TV is uploading more data than usual - would you like me to investigate or block it temporarily?</p>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-suggestions">
+                            <button class="suggestion-btn" onclick="window.narApp.askAI('What should I do about my TV?')">
+                                What should I do about my TV?
+                            </button>
+                            <button class="suggestion-btn" onclick="window.narApp.askAI('Is my network safe?')">
+                                Is my network safe?
+                            </button>
+                            <button class="suggestion-btn" onclick="window.narApp.askAI('Show me all my devices')">
+                                Show me all my devices
+                            </button>
+                        </div>
+                        
+                        <div class="ai-input-area">
+                            <input type="text" 
+                                   class="ai-input" 
+                                   id="aiInput" 
+                                   placeholder="Ask me anything about your network..."
+                                   aria-label="Ask AI assistant">
+                            <button class="ai-send-btn" 
+                                    id="aiSendBtn" 
+                                    onclick="window.narApp.sendAIMessage()"
+                                    aria-label="Send message">
+                                <span class="send-icon">📤</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Threats Page -->
+            <section id="threats-page" class="page" aria-labelledby="threats-page-title">
+                <div class="page-header">
+                    <button class="back-btn" onclick="window.narApp.showPage('dashboard')" aria-label="Back to dashboard">
+                        <span class="back-icon">←</span>
+                    </button>
+                    <h1 id="threats-page-title" class="page-title">Security Threats</h1>
+                </div>
+                
+                <div class="threats-content">
+                    <div class="threat-summary">
+                        <div class="summary-card high">
+                            <div class="summary-number">1</div>
+                            <div class="summary-label">High Priority</div>
+                        </div>
+                        <div class="summary-card medium">
+                            <div class="summary-number">0</div>
+                            <div class="summary-label">Medium</div>
+                        </div>
+                        <div class="summary-card low">
+                            <div class="summary-number">0</div>
+                            <div class="summary-label">Low Priority</div>
+                        </div>
+                    </div>
+                    
+                    <div class="detailed-threats">
+                        <div class="threat-card high">
+                            <div class="threat-header">
+                                <div class="threat-priority high">HIGH</div>
+                                <div class="threat-time">2 minutes ago</div>
+                            </div>
+                            <h3 class="threat-title">Unusual Data Upload Detected</h3>
+                            <p class="threat-explanation">Your Smart TV is sending 10x more data than normal. This could be:</p>
+                            <ul class="threat-possibilities">
+                                <li>🔄 Software update in progress</li>
+                                <li>📺 Streaming service caching content</li>
+                                <li>⚠️ Malware or unauthorized access</li>
+                            </ul>
+                            <div class="threat-recommendations">
+                                <h4>What you can do:</h4>
+                                <button class="rec-btn primary" onclick="window.narApp.blockDevice('tv')">
+                                    🛡️ Block device temporarily
+                                </button>
+                                <button class="rec-btn secondary" onclick="window.narApp.investigateDevice('tv')">
+                                    🔍 Monitor for 1 hour
+                                </button>
+                                <button class="rec-btn tertiary" onclick="window.narApp.ignoreAlert('tv')">
+                                    ✓ Mark as normal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Devices Page -->
+            <section id="devices-page" class="page" aria-labelledby="devices-page-title">
+                <div class="page-header">
+                    <button class="back-btn" onclick="window.narApp.showPage('dashboard')" aria-label="Back to dashboard">
+                        <span class="back-icon">←</span>
+                    </button>
+                    <h1 id="devices-page-title" class="page-title">Your Devices</h1>
+                </div>
+                
+                <div class="devices-content">
+                    <div class="device-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Total Devices</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Secure</div>
+                        </div>
+                        <div class="stat-item warning">
+                            <div class="stat-number">1</div>
+                            <div class="stat-label">Needs Attention</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Help Page -->
+            <section id="help-page" class="page" aria-labelledby="help-page-title">
+                <div class="page-header">
+                    <button class="back-btn" onclick="window.narApp.showPage('dashboard')" aria-label="Back to dashboard">
+                        <span class="back-icon">←</span>
+                    </button>
+                    <h1 id="help-page-title" class="page-title">Help & Support</h1>
+                </div>
+                
+                <div class="help-content">
+                    <div class="help-section">
+                        <h2>🚀 Getting Started</h2>
+                        <div class="help-item">
+                            <h3>What is NAR Zero?</h3>
+                            <p>NAR Zero is like a smoke detector for your home network. It watches all your devices and alerts you if something unusual happens.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer" role="contentinfo">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <p class="footer-text">
+                        <span class="privacy-badge">🔒</span>
+                        Your data stays private - everything runs locally on your network
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
