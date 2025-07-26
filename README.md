@@ -121,6 +121,22 @@ Build an AI-driven zero-day exploit detection and response platform with a web d
 - Regular updates to documentation as new features are developed or existing features are enhanced.
 - Ensure all changes are logged in the project’s change log.
 
+# NAR: Network Alarm Response
+
+AI-Driven Zero-Day Exploit Detection and Defense System.
+
+## Features
+- AI-Powered Detection: Machine learning for real-time anomaly identification.
+- Real-Time Monitoring: Integrates with Zeek for packet analysis.
+- Automated Response: Neutralizes threats like data exfiltration.
+
+## Setup
+1. Clone the repo: `git clone https://github.com/a730/NAR.git`
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run: `python main.py`
+
+For full project objectives, see the original repo documentation.
+
 ## Contributing
 
 We welcome contributions from the community! To contribute:
