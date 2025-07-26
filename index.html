@@ -4,135 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NAR Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .logo::before {
-            content: '';
-            width: 20px;
-            height: 20px;
-            background-color: #007bff;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .header nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        .header nav ul li {
-            margin-right: 20px;
-        }
-        .header nav ul li a {
-            text-decoration: none;
-            color: #000;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        .stat {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 200px;
-        }
-        .stat .value {
-            font-size: 2em;
-            font-weight: bold;
-        }
-        .threats {
-            margin-top: 20px;
-        }
-        .threat-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .threat-table th, .threat-table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .threat-icon {
-            color: red;
-            font-weight: bold;
-            margin-right: 5px;
-        }
-        .devices {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .pie-chart {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: conic-gradient(#007bff 0% 40%, #ccc 40% 100%);
-            position: relative;
-        }
-        .device-list {
-            display: flex;
-            flex-direction: column;
-        }
-        .device-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .device-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .blue { background: #007bff; }
-        .gray { background: #ccc; }
-        .ai-assistant {
-            margin-top: 20px;
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-        }
-        .ai-message {
-            margin-bottom: 10px;
-        }
-        .ai-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -146,56 +18,76 @@
                 </ul>
             </nav>
         </div>
+        <h1>Network Alarm Respons (NAR) Dashboard</h1>
+        <p>Conceptual Smoke Alarm for Your Network – powered by AI (White Rabbit NEO)</p>
         <div class="stats">
-            <div class="stat">
+            <div id="threats-stat" class="stat">
                 <div class="value">2</div>
                 <div>Threats Detected</div>
             </div>
-            <div class="stat">
+            <div id="devices-stat" class="stat">
                 <div class="value">5</div>
                 <div>Devices Monitored</div>
             </div>
-            <div class="stat">
+            <div id="connections-stat" class="stat">
                 <div class="value">22</div>
                 <div>Analyzed Connections</div>
             </div>
         </div>
-        <div class="threats">
-            <h3>Detected Threats</h3>
-            <table class="threat-table">
-                <tr>
-                    <th>THREAT</th>
-                    <th>DEVICE</th>
-                </tr>
-                <tr>
-                    <td><span class="threat-icon">!</span> Data Exfiltration</td>
-                    <td>SmartTV ><br>Today, 10:45 AM<br>192.168.1.50</td>
-                </tr>
-                <tr>
-                    <td><span class="threat-icon">!</span> Suspicious Network Activity</td>
-                    <td>Laptop ><br>192.168.1.24</td>
-                </tr>
-            </table>
-        </div>
-        <div class="devices">
-            <div>
+        <div class="content-flex">
+            <div id="threats-box" class="threats box">
+                <h3>Detected Threats</h3>
+                <table class="threat-table">
+                    <tr>
+                        <th>THREAT</th>
+                        <th>DEVICE</th>
+                    </tr>
+                    <tr>
+                        <td><span class="threat-icon">!</span> Data Exfiltration</td>
+                        <td>SmartTV ><br>Today, 10:45 AM<br>192.168.1.50</td>
+                    </tr>
+                    <tr>
+                        <td><span class="threat-icon">!</span> Suspicious Network Activity</td>
+                        <td>Laptop ><br>192.168.1.24</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="devices-box" class="devices box">
                 <h3>Active Devices</h3>
-                <div class="pie-chart"></div>
-            </div>
-            <div class="device-list">
-                <div class="device-item">
-                    <div class="device-dot blue"></div> Laptop
+                <div class="pie-chart">
+                    <div class="pie-center"></div>
                 </div>
-                <div class="device-item">
-                    <div class="device-dot gray"></div> SmartTV
+                <div class="device-list">
+                    <div class="device-item">
+                        <div class="device-dot blue"></div> Laptop
+                    </div>
+                    <div class="device-item">
+                        <div class="device-dot gray"></div> SmartTV
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="ai-assistant">
-            <h3>AI Assistant</h3>
-            <div class="ai-message">The SmartTV appears to be uploading large amount of data to an unknown server. I recommend blocking outgoing traffic on port 443 for this device.</div>
-            <input type="text" class="ai-input" placeholder="Type a message...">
+        <div class="network-health box">
+            <h3>Network Health</h3>
+            <p>Status: <span id="health-status">Loading...</span></p>
+            <p>Last Scan: <span id="last-scan">Loading...</span></p>
+            <p>Detected Threats: <span id="detected-threats">Loading...</span></p>
+            <button onclick="alert('Manual scan triggered!')">Run Manual Scan</button>
         </div>
+        <div class="latest-alerts box">
+            <h3>Latest Alerts</h3>
+            <div id="alerts-list"></div>
+        </div>
+        <div class="ai-assistant box">
+            <h3>AI-Powered Network Summary</h3>
+            <p id="llm-summary">Loading...</p>
+        </div>
+        <div class="transparency box">
+            <h3>Transparency & Privacy</h3>
+            <p>All analysis is performed locally. No packet contents are stored or sent to the cloud. Only network behavior is analyzed, prioritizing your privacy and resource efficiency.</p>
+        </div>
+        <div id="snackbar" class="snackbar">New network alert detected!</div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
