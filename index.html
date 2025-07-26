@@ -3,35 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="NAR Zero - Simple Home Network Security Dashboard">
+    <meta name="description" content="NAR Zero - Advanced Home Network Security Dashboard">
     <meta name="theme-color" content="#007bff">
-    <title>NAR Zero - Your Home Network Guardian</title>
+    <title>NAR Zero - Advanced Network Guardian</title>
     
     <!-- PWA Manifest -->
-    <link rel="manifest" <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>️</text></svg>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS for loading performance -->
+    <style>
+        .loading-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            display: flex; align-items: center; justify-content: center; 
+            z-index: 9999; color: white; font-family: Arial, sans-serif;
+        }
+        .loading-content { text-align: center; }
+        .loading-spinner { 
+            width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.3); 
+            border-top: 3px solid white; border-radius: 50%; 
+            animation: spin 1s linear infinite; margin: 0 auto 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
 <body>
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <!-- Offline Banner -->
-    <div class="offline-banner hidden" id="offlineBanner" role="alert" aria-live="polite">
-        <span>📡 You're offline. Some features may not work.</span>
-        <button class="close-banner" onclick="this.parentElement.classList.add('hidden')">&times;</button>
+    <!-- Enhanced Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>🛡️ NAR Zero</h2>
+            <p>Initializing Advanced Security Systems...</p>
+        </div>
     </div>
+
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Main Container -->
     <div class="container">
-        <!-- Status Bar -->
+        <!-- Enhanced Status Bar -->
         <div class="status-bar" role="banner">
             <div class="status-left">
-                <span class="status-dot online" id="connectionStatus"></span>
-                <span class="status-text">Your network is protected</span>
+                <div class="connection-indicator">
+                    <span class="status-dot online" id="connectionStatus"></span>
+                    <span class="status-text" id="connectionText">Your network is protected</span>
+                </div>
+                <div class="threat-level-indicator">
+                    <span class="threat-level" id="threatLevel">LOW</span>
+                    <span class="threat-text">Threat Level</span>
+                </div>
             </div>
             <div class="status-right">
+                <button class="notification-btn" id="notificationBtn" aria-label="View notifications">
+                    🔔 <span class="notification-count" id="notificationCount">2</span>
+                </button>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                     <span class="theme-icon">🌙</span>
                 </button>
@@ -41,13 +71,16 @@
             </div>
         </div>
 
-        <!-- Header -->
+        <!-- Enhanced Header with Live Status -->
         <header class="header" role="banner">
             <div class="logo-section">
                 <div class="logo-icon" aria-hidden="true">🛡️</div>
                 <div class="logo-text">
                     <h1 class="logo-title">NAR Zero</h1>
-                    <p class="logo-subtitle">Your Home Network Guardian</p>
+                    <p class="logo-subtitle">Advanced Network Guardian</p>
+                    <div class="system-status">
+                        <span class="status-indicator active" id="systemStatus">All Systems Active</span>
+                    </div>
                 </div>
             </div>
             
@@ -55,15 +88,21 @@
                 <ul class="nav-list">
                     <li><a href="#dashboard" class="nav-link active" data-page="dashboard">
                         <span class="nav-icon">🏠</span>
-                        <span class="nav-text">Home</span>
+                        <span class="nav-text">Dashboard</span>
                     </a></li>
                     <li><a href="#threats" class="nav-link" data-page="threats">
                         <span class="nav-icon">⚠️</span>
                         <span class="nav-text">Threats</span>
+                        <span class="nav-badge" id="threatsBadge">2</span>
                     </a></li>
                     <li><a href="#devices" class="nav-link" data-page="devices">
                         <span class="nav-icon">📱</span>
                         <span class="nav-text">Devices</span>
+                        <span class="nav-badge" id="devicesBadge">5</span>
+                    </a></li>
+                    <li><a href="#analytics" class="nav-link" data-page="analytics">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-text">Analytics</span>
                     </a></li>
                     <li><a href="#help" class="nav-link" data-page="help">
                         <span class="nav-icon">❓</span>
@@ -75,181 +114,314 @@
 
         <!-- Main Content -->
         <main id="main-content" class="main-content" role="main">
-            <!-- Dashboard Page -->
+            <!-- Enhanced Dashboard Page -->
             <section id="dashboard-page" class="page active" aria-labelledby="dashboard-title">
-                <!-- Quick Status Cards -->
-                <div class="quick-status" role="region" aria-labelledby="status-heading">
-                    <h2 id="status-heading" class="section-title">Network Status</h2>
-                    <div class="status-grid">
-                        <div class="status-card safe" id="safetyCard" tabindex="0" role="button" aria-pressed="false">
-                            <div class="card-icon">✅</div>
-                            <div class="card-content">
-                                <h3 class="card-title">You're Safe</h3>
-                                <p class="card-description">No threats detected</p>
-                                <div class="card-detail">Last checked: <span id="lastCheck">Just now</span></div>
+                
+                <!-- Real-time Network Overview -->
+                <div class="network-overview" role="region" aria-labelledby="network-heading">
+                    <h2 id="network-heading" class="section-title">
+                        <span class="title-icon">🌐</span>
+                        Network Overview
+                        <span class="live-indicator">LIVE</span>
+                    </h2>
+                    
+                    <div class="network-stats-grid">
+                        <div class="network-stat">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="networkSpeed">156 Mbps</div>
+                                <div class="stat-label">Network Speed</div>
+                                <div class="stat-trend up">↗ +12%</div>
                             </div>
                         </div>
                         
-                        <div class="status-card devices" id="devicesCard" tabindex="0" role="button" aria-pressed="false">
-                            <div class="card-icon">📱</div>
-                            <div class="card-content">
-                                <h3 class="card-title"><span id="deviceCount">5</span> Devices</h3>
-                                <p class="card-description">Connected to your network</p>
-                                <div class="card-detail">All devices secure</div>
+                        <div class="network-stat">
+                            <div class="stat-icon">📡</div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="dataTransfer">2.4 GB</div>
+                                <div class="stat-label">Data Today</div>
+                                <div class="stat-trend neutral">→ Normal</div>
                             </div>
                         </div>
                         
-                        <div class="status-card activity" id="activityCard" tabindex="0" role="button" aria-pressed="false">
-                            <div class="card-icon">📊</div>
-                            <div class="card-content">
-                                <h3 class="card-title">Normal Activity</h3>
-                                <p class="card-description">Everything looks good</p>
-                                <div class="card-detail"><span id="dataFlow">2.4 MB/s</span> network speed</div>
+                        <div class="network-stat">
+                            <div class="stat-icon">🔍</div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="scanResults">99.7%</div>
+                                <div class="stat-label">Security Score</div>
+                                <div class="stat-trend up">↗ Excellent</div>
+                            </div>
+                        </div>
+                        
+                        <div class="network-stat">
+                            <div class="stat-icon">⏱️</div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="uptime">99.9%</div>
+                                <div class="stat-label">Uptime</div>
+                                <div class="stat-trend up">↗ Stable</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Threat Alert Section -->
+                <!-- Enhanced Threat Alert Section -->
                 <div class="threat-section" role="region" aria-labelledby="threats-heading">
                     <div class="section-header">
                         <h2 id="threats-heading" class="section-title">
                             <span class="title-icon">🚨</span>
-                            Active Warnings
+                            Security Alerts
+                            <span class="alert-count" id="alertCount">2 Active</span>
                         </h2>
-                        <button class="view-all-btn" onclick="window.narApp.showPage('threats')">View All</button>
+                        <div class="section-actions">
+                            <button class="action-btn secondary" onclick="runQuickScan()">
+                                🔍 Quick Scan
+                            </button>
+                            <button class="action-btn primary" onclick="showPage('threats')">
+                                View All
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="threat-list" id="threatList">
-                        <div class="threat-item high-priority" role="alert" aria-labelledby="threat-1">
-                            <div class="threat-indicator high"></div>
+                        <!-- High Priority Threat -->
+                        <div class="threat-item critical" role="alert" aria-labelledby="threat-1">
+                            <div class="threat-status">
+                                <div class="threat-indicator critical pulse"></div>
+                                <div class="threat-severity">CRITICAL</div>
+                            </div>
                             <div class="threat-content">
-                                <h3 id="threat-1" class="threat-title">Smart TV sending unusual data</h3>
-                                <p class="threat-description">Your Samsung TV is sending more data than usual. This might be normal or could indicate a problem.</p>
+                                <h3 id="threat-1" class="threat-title">Smart TV Unusual Data Upload</h3>
+                                <p class="threat-description">Your Samsung TV is uploading 10x more data than usual. This could indicate malware or unauthorized access.</p>
+                                
+                                <div class="threat-details">
+                                    <div class="threat-metrics">
+                                        <span class="metric">📺 Samsung TV</span>
+                                        <span class="metric">📊 24.8 MB/s (Normal: 2.1 MB/s)</span>
+                                        <span class="metric">🕐 Started 2 minutes ago</span>
+                                        <span class="metric">🌐 IP: 192.168.1.150</span>
+                                    </div>
+                                </div>
+                                
                                 <div class="threat-actions">
-                                    <button class="btn btn-primary" onclick="window.narApp.handleThreat('block')">
-                                        <span class="btn-icon">🛡️</span>
-                                        Block for now
+                                    <button class="btn btn-danger" onclick="blockDevice('tv')">
+                                        🛡️ Block Device
                                     </button>
-                                    <button class="btn btn-secondary" onclick="window.narApp.handleThreat('investigate')">
-                                        <span class="btn-icon">🔍</span>
-                                        Tell me more
+                                    <button class="btn btn-warning" onclick="investigateDevice('tv')">
+                                        🔍 Investigate
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="ignoreAlert('tv')">
+                                        ✓ Mark Safe
                                     </button>
                                 </div>
-                                <div class="threat-meta">
-                                    <span class="threat-time">2 minutes ago</span>
-                                    <span class="threat-device">📺 Samsung Smart TV</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Medium Priority Threat -->
+                        <div class="threat-item medium" role="alert" aria-labelledby="threat-2">
+                            <div class="threat-status">
+                                <div class="threat-indicator medium"></div>
+                                <div class="threat-severity">MEDIUM</div>
+                            </div>
+                            <div class="threat-content">
+                                <h3 id="threat-2" class="threat-title">Unknown Device Attempted Connection</h3>
+                                <p class="threat-description">A new device tried to connect to your network. Connection was blocked automatically.</p>
+                                
+                                <div class="threat-details">
+                                    <div class="threat-metrics">
+                                        <span class="metric">❓ Unknown Device</span>
+                                        <span class="metric">🚫 Connection Blocked</span>
+                                        <span class="metric">🕐 5 minutes ago</span>
+                                        <span class="metric">📍 MAC: **:**:**:48:2A:C7</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="threat-actions">
+                                    <button class="btn btn-primary" onclick="reviewDevice('unknown')">
+                                        👀 Review Device
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="allowDevice('unknown')">
+                                        ✓ Allow Once
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Device Overview -->
+                <!-- Enhanced Device Management -->
                 <div class="devices-overview" role="region" aria-labelledby="devices-heading">
                     <div class="section-header">
                         <h2 id="devices-heading" class="section-title">
                             <span class="title-icon">📱</span>
-                            Your Devices
+                            Connected Devices
+                            <span class="device-count" id="deviceCount">5 Online</span>
                         </h2>
-                        <button class="view-all-btn" onclick="window.narApp.showPage('devices')">Manage All</button>
+                        <div class="section-actions">
+                            <button class="action-btn secondary" onclick="scanForDevices()">
+                                🔍 Scan Network
+                            </button>
+                            <button class="action-btn primary" onclick="showPage('devices')">
+                                Manage All
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="device-grid">
-                        <div class="device-card" data-device="laptop" tabindex="0" role="button">
-                            <div class="device-status safe"></div>
-                            <div class="device-icon">💻</div>
+                        <!-- Safe Device -->
+                        <div class="device-card safe" data-device="laptop" tabindex="0" role="button">
+                            <div class="device-header">
+                                <div class="device-icon">💻</div>
+                                <div class="device-status-indicator safe"></div>
+                            </div>
                             <div class="device-info">
                                 <h3 class="device-name">Your Laptop</h3>
-                                <p class="device-detail">Windows 11 • Safe</p>
+                                <p class="device-type">Windows 11 • Dell XPS</p>
+                                <div class="device-metrics">
+                                    <span class="metric">📊 2.1 MB/s</span>
+                                    <span class="metric">🔋 85%</span>
+                                </div>
                                 <div class="device-activity">
                                     <span class="activity-dot active"></span>
-                                    <span>Active now</span>
+                                    <span class="activity-text">Active - Video Call</span>
                                 </div>
                             </div>
+                            <div class="device-security-badge safe">SECURE</div>
                         </div>
                         
+                        <!-- Threat Device -->
                         <div class="device-card warning" data-device="tv" tabindex="0" role="button">
-                            <div class="device-status warning"></div>
-                            <div class="device-icon">📺</div>
+                            <div class="device-header">
+                                <div class="device-icon">📺</div>
+                                <div class="device-status-indicator warning pulse"></div>
+                            </div>
                             <div class="device-info">
                                 <h3 class="device-name">Smart TV</h3>
-                                <p class="device-detail">Samsung • Needs attention</p>
+                                <p class="device-type">Samsung • Living Room</p>
+                                <div class="device-metrics">
+                                    <span class="metric warning">📊 24.8 MB/s</span>
+                                    <span class="metric">⚡ Plugged In</span>
+                                </div>
                                 <div class="device-activity">
-                                    <span class="activity-dot warning"></span>
-                                    <span>High data usage</span>
+                                    <span class="activity-dot warning pulse"></span>
+                                    <span class="activity-text">High Data Upload</span>
                                 </div>
                             </div>
+                            <div class="device-security-badge warning">ATTENTION NEEDED</div>
                         </div>
                         
-                        <div class="device-card" data-device="phone" tabindex="0" role="button">
-                            <div class="device-status safe"></div>
-                            <div class="device-icon">📱</div>
+                        <!-- Mobile Device -->
+                        <div class="device-card safe" data-device="phone" tabindex="0" role="button">
+                            <div class="device-header">
+                                <div class="device-icon">📱</div>
+                                <div class="device-status-indicator safe"></div>
+                            </div>
                             <div class="device-info">
                                 <h3 class="device-name">iPhone</h3>
-                                <p class="device-detail">iOS 17 • Safe</p>
+                                <p class="device-type">iOS 17 • Personal</p>
+                                <div class="device-metrics">
+                                    <span class="metric">📊 1.2 MB/s</span>
+                                    <span class="metric">🔋 76%</span>
+                                </div>
                                 <div class="device-activity">
                                     <span class="activity-dot active"></span>
-                                    <span>Connected</span>
+                                    <span class="activity-text">Browsing</span>
                                 </div>
                             </div>
+                            <div class="device-security-badge safe">SECURE</div>
                         </div>
                         
-                        <div class="device-card add-device" tabindex="0" role="button" onclick="window.narApp.addNewDevice()">
-                            <div class="add-icon">➕</div>
-                            <div class="add-text">
-                                <h3>Add Device</h3>
-                                <p>Monitor a new device</p>
+                        <!-- Add New Device -->
+                        <div class="device-card add-device" tabindex="0" role="button" onclick="addNewDevice()">
+                            <div class="add-content">
+                                <div class="add-icon">➕</div>
+                                <h3>Scan for New Devices</h3>
+                                <p>Discover and secure new devices on your network</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- AI Assistant -->
+                <!-- Enhanced AI Assistant -->
                 <div class="ai-assistant" role="region" aria-labelledby="ai-heading">
                     <div class="section-header">
                         <h2 id="ai-heading" class="section-title">
                             <span class="title-icon">🤖</span>
-                            Smart Assistant
+                            AI Security Assistant
                         </h2>
                         <div class="ai-status">
-                            <span class="status-dot online"></span>
-                            <span>Ready to help</span>
+                            <span class="status-dot online pulse"></span>
+                            <span class="ai-status-text">Learning your network patterns</span>
                         </div>
                     </div>
                     
                     <div class="ai-content">
-                        <div class="ai-message" id="aiMessage">
-                            <div class="message-avatar">🤖</div>
-                            <div class="message-bubble">
-                                <p>Hi! I'm watching your network 24/7. Your Smart TV is uploading more data than usual - would you like me to investigate or block it temporarily?</p>
+                        <div class="ai-conversation" id="aiConversation">
+                            <div class="ai-message system">
+                                <div class="message-avatar">🤖</div>
+                                <div class="message-bubble">
+                                    <p>I've been monitoring your network for suspicious activity. Your Smart TV is showing unusual behavior - it's uploading 10x more data than normal. This could be a software update, but I recommend investigating further.</p>
+                                    <div class="ai-suggestions">
+                                        <button class="suggestion-btn" onclick="aiAction('block-tv')">
+                                            🛡️ Block the TV temporarily
+                                        </button>
+                                        <button class="suggestion-btn" onclick="aiAction('analyze-traffic')">
+                                            🔍 Analyze the traffic patterns
+                                        </button>
+                                        <button class="suggestion-btn" onclick="aiAction('check-updates')">
+                                            📱 Check for device updates
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="ai-suggestions">
-                            <button class="suggestion-btn" onclick="window.narApp.askAI('What should I do about my TV?')">
-                                What should I do about my TV?
-                            </button>
-                            <button class="suggestion-btn" onclick="window.narApp.askAI('Is my network safe?')">
-                                Is my network safe?
-                            </button>
-                            <button class="suggestion-btn" onclick="window.narApp.askAI('Show me all my devices')">
-                                Show me all my devices
-                            </button>
                         </div>
                         
                         <div class="ai-input-area">
                             <input type="text" 
                                    class="ai-input" 
                                    id="aiInput" 
-                                   placeholder="Ask me anything about your network..."
-                                   aria-label="Ask AI assistant">
+                                   placeholder="Ask me about your network security..."
+                                   aria-label="Chat with AI assistant">
                             <button class="ai-send-btn" 
                                     id="aiSendBtn" 
-                                    onclick="window.narApp.sendAIMessage()"
+                                    onclick="sendAIMessage()"
                                     aria-label="Send message">
                                 <span class="send-icon">📤</span>
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dark Web Monitoring -->
+                <div class="dark-web-monitoring" role="region" aria-labelledby="darkweb-heading">
+                    <div class="section-header">
+                        <h2 id="darkweb-heading" class="section-title">
+                            <span class="title-icon">🕳️</span>
+                            Dark Web Monitoring
+                        </h2>
+                        <div class="monitoring-status">
+                            <span class="status-dot online"></span>
+                            <span>Monitoring 24/7</span>
+                        </div>
+                    </div>
+                    
+                    <div class="darkweb-status">
+                        <div class="status-card safe">
+                            <div class="status-icon">✅</div>
+                            <div class="status-content">
+                                <h3>All Clear</h3>
+                                <p>No compromised data found on dark web markets</p>
+                                <div class="last-scan">Last scan: 2 minutes ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="monitored-items">
+                            <h4>Monitoring:</h4>
+                            <div class="monitoring-list">
+                                <span class="monitor-item">📧 Email addresses</span>
+                                <span class="monitor-item">🔑 Router credentials</span>
+                                <span class="monitor-item">🌐 Network information</span>
+                                <span class="monitor-item">💳 Financial data</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -258,7 +430,7 @@
             <!-- Threats Page -->
             <section id="threats-page" class="page" aria-labelledby="threats-page-title">
                 <div class="page-header">
-                    <button class="back-btn" onclick="window.narApp.showPage('dashboard')" aria-label="Back to dashboard">
+                    <button class="back-btn" onclick="showPage('dashboard')" aria-label="Back to dashboard">
                         <span class="back-icon">←</span>
                     </button>
                     <h1 id="threats-page-title" class="page-title">Security Threats</h1>
@@ -271,40 +443,12 @@
                             <div class="summary-label">High Priority</div>
                         </div>
                         <div class="summary-card medium">
-                            <div class="summary-number">0</div>
+                            <div class="summary-number">1</div>
                             <div class="summary-label">Medium</div>
                         </div>
                         <div class="summary-card low">
                             <div class="summary-number">0</div>
                             <div class="summary-label">Low Priority</div>
-                        </div>
-                    </div>
-                    
-                    <div class="detailed-threats">
-                        <div class="threat-card high">
-                            <div class="threat-header">
-                                <div class="threat-priority high">HIGH</div>
-                                <div class="threat-time">2 minutes ago</div>
-                            </div>
-                            <h3 class="threat-title">Unusual Data Upload Detected</h3>
-                            <p class="threat-explanation">Your Smart TV is sending 10x more data than normal. This could be:</p>
-                            <ul class="threat-possibilities">
-                                <li>🔄 Software update in progress</li>
-                                <li>📺 Streaming service caching content</li>
-                                <li>⚠️ Malware or unauthorized access</li>
-                            </ul>
-                            <div class="threat-recommendations">
-                                <h4>What you can do:</h4>
-                                <button class="rec-btn primary" onclick="window.narApp.blockDevice('tv')">
-                                    🛡️ Block device temporarily
-                                </button>
-                                <button class="rec-btn secondary" onclick="window.narApp.investigateDevice('tv')">
-                                    🔍 Monitor for 1 hour
-                                </button>
-                                <button class="rec-btn tertiary" onclick="window.narApp.ignoreAlert('tv')">
-                                    ✓ Mark as normal
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -313,7 +457,7 @@
             <!-- Devices Page -->
             <section id="devices-page" class="page" aria-labelledby="devices-page-title">
                 <div class="page-header">
-                    <button class="back-btn" onclick="window.narApp.showPage('dashboard')" aria-label="Back to dashboard">
+                    <button class="back-btn" onclick="showPage('dashboard')" aria-label="Back to dashboard">
                         <span class="back-icon">←</span>
                     </button>
                     <h1 id="devices-page-title" class="page-title">Your Devices</h1>
@@ -337,10 +481,30 @@
                 </div>
             </section>
 
+            <!-- Analytics Page -->
+            <section id="analytics-page" class="page" aria-labelledby="analytics-page-title">
+                <div class="page-header">
+                    <button class="back-btn" onclick="showPage('dashboard')" aria-label="Back to dashboard">
+                        <span class="back-icon">←</span>
+                    </button>
+                    <h1 id="analytics-page-title" class="page-title">Network Analytics</h1>
+                </div>
+                
+                <div class="analytics-content">
+                    <div class="analytics-overview">
+                        <div class="metric-card">
+                            <h3>Network Performance</h3>
+                            <div class="metric-value">98.7%</div>
+                            <div class="metric-label">Efficiency Score</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Help Page -->
             <section id="help-page" class="page" aria-labelledby="help-page-title">
                 <div class="page-header">
-                    <button class="back-btn" onclick="window.narApp.showPage('dashboard')" aria-label="Back to dashboard">
+                    <button class="back-btn" onclick="showPage('dashboard')" aria-label="Back to dashboard">
                         <span class="back-icon">←</span>
                     </button>
                     <h1 id="help-page-title" class="page-title">Help & Support</h1>
@@ -358,14 +522,19 @@
             </section>
         </main>
 
-        <!-- Footer -->
+        <!-- Enhanced Footer -->
         <footer class="footer" role="contentinfo">
             <div class="footer-content">
                 <div class="footer-section">
-                    <p class="footer-text">
+                    <div class="privacy-info">
                         <span class="privacy-badge">🔒</span>
-                        Your data stays private - everything runs locally on your network
-                    </p>
+                        <span class="privacy-text">100% Local Processing - Your data never leaves your network</span>
+                    </div>
+                    <div class="footer-stats">
+                        <span class="footer-stat">⚡ Response time: <strong id="responseTime">12ms</strong></span>
+                        <span class="footer-stat">🛡️ Threats blocked today: <strong id="blockedToday">47</strong></span>
+                        <span class="footer-stat">📊 Uptime: <strong id="systemUptime">99.9%</strong></span>
+                    </div>
                 </div>
             </div>
         </footer>
@@ -374,8 +543,80 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- Scripts -->
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <!-- Basic JavaScript for demo functionality -->
+    <script>
+        // Hide loading screen when page loads
+        window.addEventListener('load', function() {
+            document.getElementById('loadingScreen').style.display = 'none';
+        });
+
+        // Basic navigation function
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show requested page
+            const targetPage = document.getElementById(`${pageId}-page`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Basic function placeholders
+        function runQuickScan() { alert('Quick scan started!'); }
+        function blockDevice(device) { alert('Device blocked: ' + device); }
+        function investigateDevice(device) { alert('Investigating device: ' + device); }
+        function ignoreAlert(device) { alert('Alert ignored for: ' + device); }
+        function reviewDevice(device) { alert('Reviewing device: ' + device); }
+        function allowDevice(device) { alert('Device allowed: ' + device); }
+        function scanForDevices() { alert('Scanning for devices...'); }
+        function addNewDevice() { alert('Add new device wizard started'); }
+        function aiAction(action) { alert('AI action: ' + action); }
+        function sendAIMessage() { 
+            const input = document.getElementById('aiInput');
+            if (input.value.trim()) {
+                alert('AI Message: ' + input.value);
+                input.value = '';
+            }
+        }
+
+        // Set up navigation event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    if (page) {
+                        showPage(page);
+                    }
+                });
+            });
+
+            // Theme toggle
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const body = document.body;
+                    const currentTheme = body.getAttribute('data-theme') || 'light';
+                    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                    body.setAttribute('data-theme', newTheme);
+                    
+                    const themeIcon = document.querySelector('.theme-icon');
+                    themeIcon.textContent = newTheme === 'light' ? '🌙' : '☀️';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
